@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33815.320
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SPCalculator.Web", "SPCalculator.Web\SPCalculator.Web.csproj", "{FE0B9B98-2C1E-4B39-802F-F691D57FB961}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SPCalculator.Core", "SPCalculator.Core\SPCalculator.Core.csproj", "{11E8A0CA-71B1-485E-88FD-577952ADDDA4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SPCalculator.Data", "SPCalculator.Data\SPCalculator.Data.csproj", "{3A83D335-F243-4338-958F-B80AD73B5AFE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SPCalculator.Entity", "SPCalculator.Entity\SPCalculator.Entity.csproj", "{648EE382-830A-4AA7-B4F6-6AB78D182317}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SPCalculator.Service", "SPCalculator.Service\SPCalculator.Service.csproj", "{3ACAE90B-0A6A-4FE9-B4EA-2969167C21FF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SPCalculator.MachineLearning", "MachineLearning\SPCalculator.MachineLearning.csproj", "{DB9BC21D-8B44-429E-B13F-EA3625DE1344}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FE0B9B98-2C1E-4B39-802F-F691D57FB961}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE0B9B98-2C1E-4B39-802F-F691D57FB961}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE0B9B98-2C1E-4B39-802F-F691D57FB961}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE0B9B98-2C1E-4B39-802F-F691D57FB961}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11E8A0CA-71B1-485E-88FD-577952ADDDA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11E8A0CA-71B1-485E-88FD-577952ADDDA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11E8A0CA-71B1-485E-88FD-577952ADDDA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11E8A0CA-71B1-485E-88FD-577952ADDDA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A83D335-F243-4338-958F-B80AD73B5AFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A83D335-F243-4338-958F-B80AD73B5AFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A83D335-F243-4338-958F-B80AD73B5AFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A83D335-F243-4338-958F-B80AD73B5AFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{648EE382-830A-4AA7-B4F6-6AB78D182317}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{648EE382-830A-4AA7-B4F6-6AB78D182317}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{648EE382-830A-4AA7-B4F6-6AB78D182317}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{648EE382-830A-4AA7-B4F6-6AB78D182317}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3ACAE90B-0A6A-4FE9-B4EA-2969167C21FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3ACAE90B-0A6A-4FE9-B4EA-2969167C21FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3ACAE90B-0A6A-4FE9-B4EA-2969167C21FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3ACAE90B-0A6A-4FE9-B4EA-2969167C21FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB9BC21D-8B44-429E-B13F-EA3625DE1344}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB9BC21D-8B44-429E-B13F-EA3625DE1344}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB9BC21D-8B44-429E-B13F-EA3625DE1344}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB9BC21D-8B44-429E-B13F-EA3625DE1344}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {31E0D797-5443-4D55-80C4-D7AB3B04EE3D}
+	EndGlobalSection
+EndGlobal

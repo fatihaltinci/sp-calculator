@@ -1,0 +1,52 @@
+﻿@model ParameterAddModel
+
+<div class="container-xxl flex-grow-1 container-p-y">
+
+
+    <h4 class="fw-bold py-3 mb-4">
+        <span class="text-muted fw-light">Parametre Tanım /</span> Parametre Ekle
+    </h4>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card mb-4">
+
+                <form asp-controller="Parameter" asp-action="Add" method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly"></div>
+                    <div class="card-body">
+                        <div>
+                            <label asp-for="ParameterName" class="form-label">Parametre Adı</label>
+                            <span asp-validation-for="ParameterName" class="text-danger"></span>
+                            <input asp-for="ParameterName" type="text" class="form-control" id="parameterName" placeholder="e.g. | X hatasına neden olan Y servisinin düzenlenmesi" aria-describedby="defaultFormControlHelp">
+                            <div id="defaultFormControlHelp" class="form-text">Parametrenin adını girin.</div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div>
+                            <label asp-for="ParameterDesc" class="form-label">Parametre Açıklaması</label>
+                            <span asp-validation-for="ParameterDesc" class="text-danger"></span>
+                            <input asp-for="ParameterDesc" type="text" class="form-control mb-3" id="parameterDesc" placeholder="e.g. | Y servisinin Z methoduna bugfix atılması" aria-describedby="defaultFormControlHelp">
+                            <div id="defaultFormControlHelp" class="form-text">Parametre açıklamasını girin.</div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div>
+                            <label asp-for="ParameterPoint" class="form-label">Parametre Puanı</label>
+                            <span asp-validation-for="ParameterPoint" class="text-danger"></span>
+                            <input asp-for="ParameterPoint" type="text" class="form-control" id="parameterPoint" placeholder="e.g. | 4" aria-describedby="defaultFormControlHelp">
+                            <div id="defaultFormControlHelp" class="form-text">Parametre puanını girin.</div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary">Kaydet</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</div>

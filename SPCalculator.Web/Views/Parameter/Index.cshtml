@@ -1,0 +1,61 @@
+﻿@model List<ParameterModel>
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="fw-bold py-3 mb-4">
+        <span class="text-muted fw-light">Parametre Tanım /</span> Parametreler
+    </h4>
+
+    <div class="card">
+        <h5 class="card-header">Parametre Görüntüleme Ekranı</h5>
+        <div class="table-responsive text-nowrap m-5">
+
+            <a class="btn btn-success mb-3" asp-controller="Parameter" asp-action="Add"> @*Ekle butonuna basınca Parameter/Add.cshtml sayfasına gidecek*@
+                Parametre Ekle <i class="bx bx-plus"></i>
+            </a>
+
+            <table class="table table-bordered" id="parameterTables" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Parametre Adı</th>
+                        <th>Oluşturulma Tarihi</th>
+                        <th>Güncellenme Tarihi</th>
+                        <th>Durum</th> @*isDeleted*@
+                        <th>Parametre Puanı</th>
+                        <th>Eylemler</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Parametre Adı</th>
+                        <th>Oluşturulma Tarihi</th>
+                        <th>Güncellenme Tarihi</th>
+                        <th>Durum</th> @*isDeleted*@
+                        <th>Parametre Puanı</th>
+                        <th>Eylemler</th>
+                    </tr>
+                </tfoot>
+                <tbody class="table-border-bottom-0">
+                    @foreach (var item in Model)
+                    {
+                        <tr name="@item.Id">
+                            <td>@item.ParameterName</td>
+                            <td>@item.CreatedDate.ToShortDateString()</td>
+                            <td>@item.UpdatedDate</td>
+                            <td>@(item.IsDeleted ? "Aktif Değil" : "Aktif")</td>
+                            <td>@item.ParameterPoint</td>
+                            <td>
+                                <a class="btn btn-primary btn-sm" data-id="@item.Id" asp-controller="Parameter" asp-action="Update" asp-route-id="@item.Id"><i class="bx bxs-edit"></i></a>
+                                <a class="btn btn-danger btn-sm" data-id="@item.Id" asp-controller="Parameter" asp-action="Delete" asp-route-id="@item.Id"><i class="bx bx-minus-circle"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts{
+    <script src="~/js/parameterIndex.js" type="application/ecmascript"></script>
+}

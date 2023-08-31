@@ -1,0 +1,40 @@
+﻿
+<style>
+    body {
+        display: grid;
+        place-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .result-container {
+        max-width: 400px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        text-align: center; /* YAZIYI ORTALAR */
+        
+    }
+
+    h2 {
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
+
+    p {
+        margin-bottom: 10px;
+    }
+</style>
+
+<div class="result-container">
+    <h2>Hesaplama Sonuçları</h2>
+
+    <p>Seçilen yöntem: @ViewBag.CalculateMethod</p>
+    <p>Seçilen Sprint'ler': @ViewBag.SelectedSprintNames</p>
+
+    @if (ViewBag.Predictions != null)
+    {
+        <h3>Tahmin Sonucu:</h3>
+        <p>@ViewBag.Predictions</p>
+    }
+</div>

@@ -1,0 +1,179 @@
+﻿@model SprintUpdateModel
+
+<div class="container-xxl flex-grow-1 container-p-y">
+
+    <h4 class="fw-bold py-3 mb-4">
+        <span class="text-muted fw-light">Sprintler /</span> Sprint Güncelle
+    </h4>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card mb-4">
+
+                <form asp-controller="Sprint" asp-action="Update" method="post" enctype="multipart/form-data">
+                    <input type="hidden" asp-for="Id" />
+                    <div asp-validation-summary="ModelOnly"></div>
+
+                    <div class="card-body">
+                        <div>
+                            <label asp-for="SprintName" class="form-label">Sprint Adı</label>
+                            <span asp-validation-for="SprintName" class="text-danger"></span>
+                            <input asp-for="SprintName" type="text" class="form-control" id="sprintName" placeholder="e.g. | eLogo.X.AnyService" aria-describedby="defaultFormControlHelp">
+                            <div id="defaultFormControlHelp" class="form-text">Sprint adını girin.</div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div>
+                            <label asp-for="VersionInfo" class="form-label">Versiyon Bilgisi</label>
+                            <input asp-for="VersionInfo" type="text" class="form-control" id="versionInfo" placeholder="e.g. | EES - 4.13-2023.R10 05/30" aria-describedby="defaultFormControlHelp">
+                            <span asp-validation-for="VersionInfo" class="text-danger"></span>
+                            <div id="defaultFormControlHelp" class="form-text">Sprint versiyonunu girin.</div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div>
+                            <label asp-for="ItemNo" class="form-label">Ürün Numarası</label>
+                            <input asp-for="ItemNo" type="text" class="form-control" id="itemNo" placeholder="e.g. | EES-48940" aria-describedby="defaultFormControlHelp">
+                            <span asp-validation-for="ItemNo" class="text-danger"></span>
+                            <div id="defaultFormControlHelp" class="form-text">Sprint ürün numarasını girin.</div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div>
+                            <label asp-for="DifficultyLevel" class="form-label">Zorluk Derecesi</label>
+                            <span asp-validation-for="DifficultyLevel" class="text-danger"></span>
+                            <select class="form-select" id="difficultyLevel" aria-describedby="defaultFormControlHelp" asp-for="DifficultyLevel">
+                                <option value="">Seçiniz</option>
+                                <option value="Easy">Kolay</option>
+                                <option value="Medium">Orta</option>
+                                <option value="Hard">Zor</option>
+                            </select>
+                            <div id="defaultFormControlHelp" class="form-text">Seçmek isterseniz Sprint'in zorluk derecesini seçin'.</div>
+                        </div>
+
+                        <script>
+                            // JavaScript ile Difficulty Level'ı yakalayıp form alanına atama
+                            var difficultyLevelSelect = document.getElementById("difficultyLevel");
+                            var hiddenDifficultyLevelInput = document.getElementById("hiddenDifficultyLevel");
+
+                            difficultyLevelSelect.addEventListener("change", function () {
+                                hiddenDifficultyLevelInput.value = this.value;
+                            });
+                        </script>
+                        <input type="hidden" asp-for="DifficultyLevel" id="hiddenDifficultyLevel" />
+                    </div>
+
+                    <div class="card-body">
+                        <label asp-for="FunctionId" class="form-label">Fonksiyonlar</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="functionInput" readonly placeholder="Fonksiyonları seçin" value="@Model.Functions.FirstOrDefault(f => f.Id == Model.FunctionId)?.FunctionName">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#functionModal">
+                                Seç
+                            </button>
+                        </div>
+                        <input asp-for="FunctionId" type="hidden" id="selectedFunctionIds" />
+                        <span asp-validation-for="FunctionId" class="text-danger"></span>
+                        <div id="defaultFormControlHelp" class="form-text">Sprint fonksiyonlarını seçin.</div>
+                    </div>
+
+                    <div class="card-body">
+                        <label asp-for="ParameterId" class="form-label">Parametreler</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="parameterInput" readonly placeholder="Parametreleri seçin" value="@Model.Parameters.FirstOrDefault(p => p.Id == Model.ParameterId)?.ParameterName">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#parameterModal">
+                                Seç
+                            </button>
+                        </div>
+                        <input asp-for="ParameterId" type="hidden" id="selectedParameterIds" />
+                        <span asp-validation-for="ParameterId" class="text-danger"></span>
+                        <div id="defaultFormControlHelp" class="form-text">Sprint parametrelerini seçin.</div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="selected-items">
+                            <b>Seçilen Fonksiyonlar:</b>
+                            <ul id="selectedFunctionsList">
+                                @if (Model.Functions.FirstOrDefault(f => f.Id == Model.FunctionId) != null)
+                                {
+                                    <li>@Model.Functions.FirstOrDefault(f => f.Id == Model.FunctionId).FunctionName</li>
+                                }
+                            </ul>
+                            <b>Seçilen Parametreler:</b>
+                            <ul id="selectedParametersList">
+                                @if (Model.Parameters.FirstOrDefault(p => p.Id == Model.ParameterId) != null)
+                                {
+                                    <li>@Model.Parameters.FirstOrDefault(p => p.Id == Model.ParameterId).ParameterName</li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Fonksiyon Seçimi Modal -->
+                    <div class="modal fade" id="functionModal" tabindex="-1" aria-labelledby="functionModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="functionModalLabel">Fonksiyon Seçimi</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <select id="functionListModal" class="form-control" multiple>
+                                        @foreach (var function in Model.Functions)
+                                        {
+                                            <option value="@function.Id">@function.FunctionName</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                                    <button type="button" class="btn btn-primary" id="functionSelectButton">Seç</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Parametre Seçimi Modal -->
+                    <div class="modal fade" id="parameterModal" tabindex="-1" aria-labelledby="parameterModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="parameterModalLabel">Parametre Seçimi</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <select id="parameterListModal" class="form-control" multiple>
+                                        @foreach (var parameter in Model.Parameters)
+                                        {
+                                            <option value="@parameter.Id">@parameter.ParameterName</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                                    <button type="button" class="btn btn-primary" id="parameterSelectButton">Seç</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <style>
+                        /* Stil tanımlamaları buraya eklenecek */
+                    </style>
+
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary">Kaydet</button>
+                    </div>
+                </form>
+
+                <div id="selectedItemsDiv"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/sprintUpdate.js" type="application/ecmascript"></script>
+}

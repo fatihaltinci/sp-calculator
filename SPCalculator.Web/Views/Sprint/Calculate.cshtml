@@ -1,0 +1,92 @@
+﻿@{
+    ViewData["Title"] = "Calculate";
+}
+
+<style>
+    body {
+        display: grid;
+        place-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .form-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        margin-top: 20px; /* Yukarıdan boşluk eklemek için bu satırı ekledik */
+    }
+
+    form {
+        max-width: 400px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    div {
+        margin-bottom: 10px;
+    }
+
+    label {
+        margin-left: 5px;
+    }
+
+    button {
+        display: block;
+        margin: 20px auto 0;
+    }
+</style>
+
+@model CalculateViewModel
+
+@if (Model.SelectedIds != null)
+{
+    <div class="d-flex justify-content-center mt-4">
+        <div>
+            <p>Seçilen Sprint'ler: @Model.SelectedSprintNames</p>
+        </div>
+    </div>
+
+}
+
+@if (Model.CalculateMethod == null)
+{
+    <div class="form-container">
+        <h2>Hangi yöntemle hesaplanmasını istiyorsunuz?</h2>
+
+        <form asp-controller="Sprint" asp-action="Calculate" method="post">
+            <label for="calculateMethod">Hesaplama Yöntemi:</label>
+            <div>
+                @*Boşluk*@
+            </div>
+            <div>
+                <input type="radio" id="statistical" name="calculateMethod" value="İstatiksel" required>
+                <label for="statistical">İstatiksel</label>
+            </div>
+            <div>
+                <input type="radio" id="aiBased" name="calculateMethod" value="Yapay Zeka Tabanlı" required>
+                <label for="aiBased">Yapay Zeka Tabanlı</label>
+            </div>
+
+            <input type="hidden" name="selectedIds" value="@Model.SelectedIds" />
+            <input type="hidden" name="selectedNames" value="@Model.SelectedSprintNames" />
+            <button type="submit">İleri</button>
+        </form>
+    </div>
+}
+else
+{
+    <div class="d-flex justify-content-center">
+        <p>Seçilen Hesaplama Yöntemi: @Model.CalculateMethod</p>
+    </div>
+    <div class="d-flex justify-content-center">
+        <p>Toplam Puan: @Model.TotalPoints</p>
+    </div>
+}
+

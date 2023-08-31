@@ -1,0 +1,131 @@
+﻿@model List<SprintModel>
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="fw-bold py-3 mb-4">
+        <span class="text-muted fw-light">Sprint Puan /</span> Sprintler
+    </h4>
+
+    <div class="card">
+        <h5 class="card-header">Sprint Görüntüleme Ekranı</h5>
+        <div class="table-responsive text-nowrap m-5">
+
+            <a class="btn btn-success mb-3" asp-controller="Sprint" asp-action="Add">
+                Sprint Ekle <i class="bx bx-plus"></i>
+            </a>
+
+            <table class="table table-bordered" id="sprintTables" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th style="display: none;">Id</th> <!-- Id sütunu gizli olarak ekleniyor | kullanıcıya gösterilmeyecek yani --> 
+                        <th>Sprint Adı</th>
+                        <th>Versiyon Bilgisi</th>
+                        <th>Ürün Numarası</th>
+                        <th>Zorluk Seviyesi</th>
+                        <th>Oluşturulma Tarihi</th>
+                        <th>Güncellenme Tarihi</th>
+                        <th>Durum</th> @*isDeleted*@
+                        @*<th>Baz Puan</th>*@
+                        <th>Eylemler</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th style="display: none;">Id</th> <!-- Id sütunu gizli olarak ekleniyor | kullanıcıya gösterilmeyecek yani -->
+                        <th>Sprint Adı</th>
+                        <th>Versiyon Bilgisi</th>
+                        <th>Ürün Numarası</th>
+                        <th>Zorluk Seviyesi</th>
+                        <th>Oluşturulma Tarihi</th>
+                        <th>Güncellenme Tarihi</th>
+                        <th>Durum</th> @*isDeleted*@
+                        @*<th>Baz Puan</th>*@
+                        <th>Eylemler</th>
+                    </tr>
+                </tfoot>
+                <tbody class="table-border-bottom-0">
+                   @foreach (var item in Model)
+                    {
+                        <tr name="@item.Id">
+                            <td style="display: none;">@item.Id</td> <!-- Id sütunu gizli olarak ekleniyor | kullanıcıya gösterilmeyecek yani -->
+                            <td>@item.SprintName</td>
+                            <td>@item.VersionInfo</td>
+                            <td>@item.ItemNo</td>
+                            <td>@item.DifficultyLevel</td>
+                            <td>@item.CreatedDate.ToShortDateString()</td>
+                            <td>@item.UpdatedDate</td>
+                            <td>@(item.IsDeleted ? "Aktif Değil" : "Aktif")</td>
+                            @*<td>@item.BasePoint</td>*@
+                            <td>
+                                <a class="btn btn-primary btn-sm" data-id="@item.Id" asp-controller="Sprint" asp-action="Update" asp-route-id="@item.Id"><i class="bx bxs-edit"></i></a>
+                                <a class="btn btn-danger btn-sm" data-id="@item.Id" asp-controller="Sprint" asp-action="Delete" asp-route-id="@item.Id"><i class="bx bx-minus-circle"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="text-center mt-5">
+                <a class="btn btn-primary" href="#" id="calculateButton">Puan Hesapla</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts{
+    <script src="~/js/sprintIndex.js" type="application/ecmascript"></script>
+    <script>
+        $(document).ready(function () {
+            $('#sprintTables tbody').on('click', 'tr', function () {
+                $(this).toggleClass('selected');
+            });
+
+            $('#calculateButton').click(function () {
+                var selectedIds = [];
+                var selectedNames = [];
+
+                $('#sprintTables tbody tr.selected').each(function () {
+                    var id = $(this).find('td:first').text();
+                    var name = $(this).find('td:nth-child(2)').text();
+                    selectedIds.push(id);
+                    selectedNames.push(name);
+                });
+
+                if (selectedIds.length > 0) {
+                    var calculateMethod = ""; // boş olarak yolladık, çünkü kullanıcıya seçim yaptırmak istiyoruz
+
+                    // Forma seçili sprint ID'lerini ve hesaplama yöntemini ekleyerek submit ediyoruz, direkt yönlendirme yapılırsa Action tekrar çalıştığı için önceki parametreler siliniyor.
+                    var form = $('<form action="/Sprint/Calculate" method="post">' +
+                        '<input type="hidden" name="calculateMethod" value="' + calculateMethod + '" />' +
+                        '<input type="hidden" name="selectedIds" value="' + selectedIds.join(',') + '" />' +
+                        '<input type="hidden" name="selectedNames" value="' + selectedNames.join(',') + '" />' +
+                        '</form>');
+                    $('body').append(form);
+                    form.submit();
+                } else {
+                    alert("Lütfen en az bir satır seçin.");
+                }
+
+                //if (selectedIds.length > 0) {
+                //    var calculateMethod = "İstatiksel"; // İstatiksel hesaplama yöntemini varsayılan olarak seçtik
+                //    $.ajax({
+                //        url: '/Sprint/Calculate',
+                //        type: 'POST',
+                //        data: { calculateMethod: calculateMethod, selectedIds: selectedIds.join(',') },
+                //        success: function (result) {
+                //            // Ajax isteği başarılı ise işlem sonuçlarını işle
+                //            console.log(result);
+                //            // Diğer sayfaya yönlendirme yapabilirsiniz:
+                //            window.location.href = '/Sprint/Calculate';
+                //        },
+                //        error: function (error) {
+                //            // Ajax isteği hata verirse hata mesajını işle
+                //            console.log(error);
+                //        }
+                //    });
+                //} else {
+                //    alert("Lütfen en az bir satır seçin.");
+                //}
+            });
+        });
+    </script>
+}

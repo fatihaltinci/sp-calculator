@@ -1,0 +1,68 @@
+﻿@model List<SprintModel>
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="fw-bold py-3 mb-4">
+        <span class="text-muted fw-light">Çöp Kutusu /</span> Silinen Sprintler
+    </h4>
+
+    <div class="card">
+        <h5 class="card-header">Sprint Görüntüleme Ekranı</h5>
+        <div class="table-responsive text-nowrap m-5">
+
+            <table class="table table-bordered" id="sprintTables" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Sprint Adı</th>
+                        <th>Versiyon Bilgisi</th>
+                        <th>Ürün Numarası</th>
+                        <th>Zorluk Seviyesi</th>
+                        <th>Oluşturulma Tarihi</th>
+                        <th>Güncellenme Tarihi</th>
+                        <th>Durum</th> @*isDeleted*@
+                        <th>Baz Puan</th>
+                        <th>Eylemler</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Sprint Adı</th>
+                        <th>Versiyon Bilgisi</th>
+                        <th>Ürün Numarası</th>
+                        <th>Zorluk Seviyesi</th>
+                        <th>Oluşturulma Tarihi</th>
+                        <th>Güncellenme Tarihi</th>
+                        <th>Durum</th> @*isDeleted*@
+                        <th>Baz Puan</th>
+                        <th>Eylemler</th>
+                    </tr>
+                </tfoot>
+                <tbody class="table-border-bottom-0">
+                    @foreach (var item in Model)
+                    {
+                        <tr name="@item.Id">
+                            <td>@item.SprintName</td>
+                            <td>@item.VersionInfo</td>
+                            <td>@item.ItemNo</td>
+                            <td>@item.DifficultyLevel</td>
+                            <td>@item.CreatedDate.ToShortDateString()</td>
+                            <td>@item.UpdatedDate</td>
+                            <td>@(item.IsDeleted ? "Aktif Değil" : "Aktif")</td>
+                            <td>@item.BasePoint</td>
+                            <td>
+                                <a class="btn btn-warning btn-sm" data-id="@item.Id" asp-controller="Sprint" asp-action="UndoDelete" asp-route-id="@item.Id"><i class="bx bx-undo"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="text-center mt-5">
+                <a class="btn btn-primary" href="#" id="calculateButton">Puan Hesapla</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts{
+    <script src="~/js/sprintIndex.js" type="application/ecmascript"></script>
+}
