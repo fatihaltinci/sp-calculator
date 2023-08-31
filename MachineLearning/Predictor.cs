@@ -11,14 +11,12 @@ namespace MachineLearning
 
         public Predictor()
         {
-            // Python.Runtime'ı başlatın
             Runtime.PythonDLL = "python310.dll";
             PythonEngine.Initialize();
         }
 
         public void LoadModel(string modelPath)
         {
-            // Eğitilmiş modeli yükleyin
             using (Py.GIL())
             {
                 dynamic joblib = Py.Import("joblib");
@@ -28,7 +26,6 @@ namespace MachineLearning
 
         public double Predict(List<List<string>> inputData)
         {
-            // Giriş verisini modele tahmin etmek için uygun hale getirin ve tahmin yapın
             using (Py.GIL())
             {
                 dynamic numpy = Py.Import("numpy");
@@ -39,10 +36,8 @@ namespace MachineLearning
                 dynamic train_data = pandas.read_csv("C:\\Users\\Fatih\\source\\repos\\SPCalculator\\MachineLearning\\veri_seti.csv");
                 dynamic train_features = train_data.drop("ParameterPoint", axis: 1);
 
-                // One-Hot Encoder'ı yükle ve eğitim verisine uygula
                 encoder.fit(train_features);
 
-                // Verileri Python için uygun hale getirin
                 dynamic veriler = new PyList();
 
                 foreach (var row in inputData)
@@ -57,12 +52,10 @@ namespace MachineLearning
                     veriler.append(rowData);
                 }
 
-                // Tahmin yapın
                 var verilerEncoded = encoder.transform(veriler);
                 var sonuclar = _model.predict(verilerEncoded);
 
-                // İlk tahmin sonucunu al ve döndür
-                double tahminSonuc = sonuclar[0].As<double>(); // veya double olarak dönüştürün
+                double tahminSonuc = sonuclar[0].As<double>();
 
                 return tahminSonuc;
             }
@@ -70,7 +63,6 @@ namespace MachineLearning
 
         public void Dispose()
         {
-            // Python.Runtime'ı kapatın
             PythonEngine.Shutdown();
         }
     }
